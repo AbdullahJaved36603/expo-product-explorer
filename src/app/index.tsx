@@ -1,9 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+
+type Product = {
+  id: string;
+  name: string;
+  price: number;
+};
+
+const PRODUCTS: Product[] = [
+  { id: '1', name: 'Wireless Mouse', price: 2500 },
+  { id: '2', name: 'Mechanical Keyboard', price: 8500 },
+  { id: '3', name: 'USB-C Hub', price: 4200 },
+  { id: '4', name: 'Laptop Stand', price: 3000 },
+];
 
 export default function HomeScreen() {
   return (
@@ -17,6 +30,23 @@ export default function HomeScreen() {
           <ThemedText style={styles.name}>Muhammad Abdullah Javed</ThemedText>
           <ThemedText style={styles.rollNo}>Roll No: 23I-3010</ThemedText>
         </ThemedView>
+
+        <ThemedText type="smallBold" style={styles.sectionTitle}>
+          Products
+        </ThemedText>
+
+        <FlatList
+          data={PRODUCTS}
+          keyExtractor={(item) => item.id}
+          style={styles.list}
+          contentContainerStyle={styles.listContent}
+          renderItem={({ item }) => (
+            <ThemedView type="backgroundElement" style={styles.productRow}>
+              <ThemedText style={styles.productName}>{item.name}</ThemedText>
+              <ThemedText>Rs. {item.price.toLocaleString()}</ThemedText>
+            </ThemedView>
+          )}
+        />
       </SafeAreaView>
     </ThemedView>
   );
@@ -31,9 +61,8 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: Spacing.four,
+    paddingTop: Spacing.five,
+    gap: Spacing.three,
     paddingBottom: BottomTabInset + Spacing.three,
     maxWidth: MaxContentWidth,
   },
@@ -41,7 +70,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   card: {
-    alignSelf: 'stretch',
     alignItems: 'center',
     gap: Spacing.two,
     paddingHorizontal: Spacing.three,
@@ -56,5 +84,25 @@ const styles = StyleSheet.create({
   rollNo: {
     fontSize: 18,
     textAlign: 'center',
+  },
+  sectionTitle: {
+    marginTop: Spacing.two,
+  },
+  list: {
+    flex: 1,
+  },
+  listContent: {
+    gap: Spacing.two,
+  },
+  productRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.three,
+    borderRadius: Spacing.three,
+  },
+  productName: {
+    fontWeight: '600',
   },
 });
