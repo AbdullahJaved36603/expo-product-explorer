@@ -28,7 +28,7 @@ export default function HomeScreen() {
 
         <ThemedView type="backgroundElement" style={styles.card}>
           <ThemedText style={styles.name}>Muhammad Abdullah Javed</ThemedText>
-          <ThemedText style={styles.rollNo}>Roll No: 23I-3010</ThemedText
+          <ThemedText style={styles.rollNo}>Roll No: 23I-3010</ThemedText>
         </ThemedView>
 
         <ThemedText type="smallBold" style={styles.sectionTitle}>
